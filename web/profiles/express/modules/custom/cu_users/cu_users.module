@@ -28,7 +28,6 @@ function cu_users_get_users($type = 'all') {
     'brokaw' => 'Annie.Brokaw@Colorado.EDU',
     'linebarg' => 'joanna.bertrand@Colorado.EDU',
     'wetu1300' => 'wendy.turnbull@Colorado.EDU',
-    'mortone' => 'Emily.Kellagher@Colorado.EDU',
   );
 
   $user_array['site_owner'] = array(
@@ -105,7 +104,7 @@ function cu_users_help($path, $arg) {
 <ol class="numbered-list">
   <li>Select a Core Role.</li>
   <li>Consider an optional add-on role for elevated permissions (can be added later via modify site user access).</li>
-  <li>Add the individual user’s email address (i.e., jane.smith@colorado.edu or janesmith@gmail.com). Do not use group or department accounts which are less secure. </li>
+  <li>Add the individual user’s identikey@colorado.edu email</li>
   <li>Provide a custom message to the person (optional).</li>
   <li>Click Send Invites at the bottom of the page.</li>
   </ol>';
