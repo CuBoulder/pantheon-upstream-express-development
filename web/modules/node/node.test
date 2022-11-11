@@ -666,7 +666,6 @@ class NodeCreationTestCase extends DrupalWebTestCase {
     }
 
     // Check that the rollback error was logged.
-<<<<<<< HEAD
     // PostgreSQL doesn't support bytea LIKE queries, so we need to unserialize
     // first to check for the rollback exception message.
     $matches = array();
@@ -678,10 +677,6 @@ class NodeCreationTestCase extends DrupalWebTestCase {
       }
     }
     $this->assertTrue(count($matches) > 0, 'Rollback explanatory error logged to watchdog.');
-=======
-    $records = db_query("SELECT wid FROM {watchdog} WHERE variables LIKE '%Test exception for rollback.%'")->fetchAll();
-    $this->assertTrue(count($records) > 0, 'Rollback explanatory error logged to watchdog.');
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   }
 
   /**
@@ -2559,7 +2554,6 @@ class NodeTokenReplaceTestCase extends DrupalWebTestCase {
       $this->assertEqual($output, $expected, format_string('Sanitized node token %token replaced.', array('%token' => $input)));
     }
 
-<<<<<<< HEAD
     // Test if the node without nid gets correct tokens (e.g. unsaved node).
     $new_node_without_nid = clone $node;
     unset($new_node_without_nid->nid);
@@ -2580,8 +2574,6 @@ class NodeTokenReplaceTestCase extends DrupalWebTestCase {
     $tests['[node:url]'] = url('node/' . $node->nid, $url_options);
     $tests['[node:edit-url]'] = url('node/' . $node->nid . '/edit', $url_options);
 
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     // Generate and test unsanitized tokens.
     $tests['[node:title]'] = $node->title;
     $tests['[node:body]'] = $node->body[$langcode][0]['value'];

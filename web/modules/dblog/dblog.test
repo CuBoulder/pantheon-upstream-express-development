@@ -58,10 +58,7 @@ class DBLogTestCase extends DrupalWebTestCase {
     $this->verifyCron($row_limit);
     $this->verifyEvents();
     $this->verifyReports();
-<<<<<<< HEAD
     $this->testDBLogCorrupted();
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 
     // Login the regular user.
     $this->drupalLogin($this->any_user);
@@ -69,7 +66,6 @@ class DBLogTestCase extends DrupalWebTestCase {
   }
 
   /**
-<<<<<<< HEAD
    * Tests corrupted log entries can still display available data.
    */
   private function testDBLogCorrupted() {
@@ -99,8 +95,6 @@ class DBLogTestCase extends DrupalWebTestCase {
   }
 
   /**
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
    * Verifies setting of the database log row limit.
    *
    * @param int $row_limit

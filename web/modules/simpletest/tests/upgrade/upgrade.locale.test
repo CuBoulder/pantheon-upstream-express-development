@@ -27,12 +27,9 @@ class LocaleUpgradePathTestCase extends UpgradePathTestCase {
    * Test a successful upgrade (no negotiation).
    */
   public function testLocaleUpgrade() {
-<<<<<<< HEAD
     if ($this->skipUpgradeTest) {
       return;
     }
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     $this->assertTrue($this->performUpgrade(), 'The upgrade was completed successfully.');
 
     // The home page should be in French.
@@ -49,12 +46,9 @@ class LocaleUpgradePathTestCase extends UpgradePathTestCase {
    * Test an upgrade with path-based negotiation.
    */
   public function testLocaleUpgradePathDefault() {
-<<<<<<< HEAD
     if ($this->skipUpgradeTest) {
       return;
     }
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     // LANGUAGE_NEGOTIATION_PATH_DEFAULT.
     $this->variable_set('language_negotiation', 1);
 
@@ -78,12 +72,9 @@ class LocaleUpgradePathTestCase extends UpgradePathTestCase {
    * Test an upgrade with path-based (with fallback) negotiation.
    */
   public function testLocaleUpgradePathFallback() {
-<<<<<<< HEAD
     if ($this->skipUpgradeTest) {
       return;
     }
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     // LANGUAGE_NEGOTIATION_PATH.
     $this->variable_set('language_negotiation', 2);
 
@@ -110,12 +101,9 @@ class LocaleUpgradePathTestCase extends UpgradePathTestCase {
    * Test an upgrade with domain-based negotiation.
    */
   public function testLocaleUpgradeDomain() {
-<<<<<<< HEAD
     if ($this->skipUpgradeTest) {
       return;
     }
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     // LANGUAGE_NEGOTIATION_DOMAIN.
     $this->variable_set('language_negotiation', 3);
 

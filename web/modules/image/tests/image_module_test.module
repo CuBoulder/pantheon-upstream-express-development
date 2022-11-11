@@ -20,12 +20,8 @@ function image_module_test_file_download($uri) {
 function image_module_test_image_effect_info() {
   $effects = array(
     'image_module_test_null' => array(
-<<<<<<< HEAD
       'label' => 'image_module_test_null',
       'effect callback' => 'image_module_test_null_effect',
-=======
-    'effect callback' => 'image_module_test_null_effect',
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     ),
   );
 
@@ -43,11 +39,7 @@ function image_module_test_image_effect_info() {
  * @return
  *   TRUE
  */
-<<<<<<< HEAD
 function image_module_test_null_effect(&$image, array $data) {
-=======
-function image_module_test_null_effect(array &$image, array $data) {
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   return TRUE;
 }
 

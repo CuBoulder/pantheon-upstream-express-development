@@ -54,7 +54,6 @@ function database_test_schema() {
     ),
   );
 
-<<<<<<< HEAD
   $schema['test_classtype'] = array(
     'description' => 'A duplicate version of the test table, used for fetch_style PDO::FETCH_CLASSTYPE tests.',
     'fields' => array(
@@ -93,8 +92,6 @@ function database_test_schema() {
     ),
   );
 
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   // This is an alternate version of the same table that is structured the same
   // but has a non-serial Primary Key.
   $schema['test_people'] = array(
@@ -277,10 +274,7 @@ function database_test_schema() {
     'primary key' => array('id'),
   );
 
-<<<<<<< HEAD
   $schema['TEST_UPPERCASE'] = $schema['test'];
 
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   return $schema;
 }

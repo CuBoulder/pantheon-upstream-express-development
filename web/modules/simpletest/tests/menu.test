@@ -1738,7 +1738,6 @@ class MenuTrailTestCase extends MenuWebTestCase {
     }
   }
 }
-<<<<<<< HEAD
 
 /**
  * Tests value integrity.
@@ -1777,5 +1776,3 @@ class MenuDataIntegrityTestCase extends MenuWebTestCase {
   }
 
 }
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d

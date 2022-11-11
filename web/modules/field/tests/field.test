@@ -3788,7 +3788,6 @@ class EntityPropertiesTestCase extends FieldTestCase {
       }
     }
   }
-<<<<<<< HEAD
 
   /**
    * Tests entity_extract_ids() with an empty entity info.
@@ -3801,6 +3800,4 @@ class EntityPropertiesTestCase extends FieldTestCase {
     $this->assertNull($id, 'Entity id for test_entity2 returned NULL.');
     $this->assertNull($vid, 'Entity vid for test_entity2 returned NULL.');
   }
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 }

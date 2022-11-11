@@ -328,15 +328,11 @@ function simpletest_script_init($server_software) {
   if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
     // Ensure that any and all environment variables are changed to https://.
     foreach ($_SERVER as $key => $value) {
-<<<<<<< HEAD
       // The first time this script runs $_SERVER['SERVER_SOFTWARE'] will be
       // NULL, so avoid errors from str_replace().
       if (!empty($_SERVER[$key])) {
         $_SERVER[$key] = str_replace('http://', 'https://', $_SERVER[$key]);
       }
-=======
-      $_SERVER[$key] = str_replace('http://', 'https://', $_SERVER[$key]);
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     }
   }
 

@@ -64,15 +64,12 @@ function common_test_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-<<<<<<< HEAD
   $items['common-test/html_head_link'] = array(
     'title' => 'Test HTML head link',
     'page callback' => 'common_test_html_head_link',
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   return $items;
 }
 
@@ -323,7 +320,6 @@ function existing_permissions_policy_header() {
   drupal_add_http_header('Permissions-Policy', 'geolocation=()');
   print __FUNCTION__;
 }
-<<<<<<< HEAD
 
 /**
  * Page callback.
@@ -354,5 +350,3 @@ function common_test_html_head_link() {
   ), TRUE);
   return '';
 }
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d

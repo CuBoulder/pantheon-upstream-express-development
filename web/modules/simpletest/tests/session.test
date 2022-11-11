@@ -773,7 +773,6 @@ class SessionHttpsTestCase extends DrupalWebTestCase {
   }
 }
 
-<<<<<<< HEAD
 /**
  * Unit tests for session handling.
  */
@@ -894,5 +893,3 @@ class SessionUnitTestCase extends DrupalUnitTestCase {
      }
   }
 }
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d

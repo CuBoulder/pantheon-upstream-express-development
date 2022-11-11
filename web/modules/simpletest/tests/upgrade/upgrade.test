@@ -38,14 +38,11 @@ abstract class UpgradePathTestCase extends DrupalWebTestCase {
   var $pendingUpdates = TRUE;
 
   /**
-<<<<<<< HEAD
    * Flag to indicate whether to skip upgrade tests.
    */
   var $skipUpgradeTest = FALSE;
 
   /**
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
    * Constructs an UpgradePathTestCase object.
    *
    * @param $test_id
@@ -54,11 +51,8 @@ abstract class UpgradePathTestCase extends DrupalWebTestCase {
    */
   function __construct($test_id = NULL) {
     parent::__construct($test_id);
-<<<<<<< HEAD
     $connection_info = Database::getConnectionInfo();
     $this->skipUpgradeTest = (bool) ($connection_info['default']['driver'] == 'pgsql');
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     $this->zlibInstalled = function_exists('gzopen');
   }
 
@@ -368,12 +362,9 @@ class BasicUpgradePath extends UpgradePathTestCase {
    * Test a failed upgrade, and verify that the failure is reported.
    */
   public function testFailedUpgrade() {
-<<<<<<< HEAD
     if ($this->skipUpgradeTest) {
       return;
     }
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     // Destroy a table that the upgrade process needs.
     db_drop_table('access');
     // Assert that the upgrade fails.
@@ -384,12 +375,9 @@ class BasicUpgradePath extends UpgradePathTestCase {
    * Test a successful upgrade.
    */
   public function testBasicUpgrade() {
-<<<<<<< HEAD
     if ($this->skipUpgradeTest) {
       return;
     }
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     $this->assertTrue($this->performUpgrade(), 'The upgrade was completed successfully.');
 
     // Hit the frontpage.
@@ -604,7 +592,6 @@ class BasicMinimalUpdatePath extends UpdatePathTestCase {
     $this->assertText(t('Custom date format added.'));
 
     // Verify that the unique key on {date_formats}.format still exists.
-<<<<<<< HEAD
     try {
       // The PostgreSQL driver appends suffixes to keys/indexes according to
       // their types. A unique key is a key (not an index), so it has a _key
@@ -623,9 +610,6 @@ class BasicMinimalUpdatePath extends UpdatePathTestCase {
       // Exception confirms that the unique key already existed.
       $this->pass('Unique key on {date_formats} exists');
     }
-=======
-    $this->assertTrue(db_index_exists('date_formats', 'formats'), 'Unique key on {date_formats} exists');
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   }
 }
 

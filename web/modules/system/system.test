@@ -926,7 +926,6 @@ class CronRunTestCase extends DrupalWebTestCase {
   }
 
   /**
-<<<<<<< HEAD
    * Ensure that the manual cron run is working.
    */
   function testManualCron() {
@@ -943,8 +942,6 @@ class CronRunTestCase extends DrupalWebTestCase {
   }
 
   /**
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
    * Tests that hook_flush_caches() is not invoked on every single cron run.
    *
    * @see system_cron()
@@ -1120,7 +1117,6 @@ class AccessDeniedTestCase extends DrupalWebTestCase {
 
     // Check that we're still on the same page.
     $this->assertText(t('Site information'));
-<<<<<<< HEAD
 
     // Check batch page response.
     $query_parameters = array(
@@ -1131,8 +1127,6 @@ class AccessDeniedTestCase extends DrupalWebTestCase {
     $this->drupalGet('batch');
     $this->assertResponse(403);
     $this->assertEqual(db_query('SELECT COUNT(*) FROM {watchdog} WHERE type = :type AND severity = :severity', $query_parameters)->fetchField(), 0, 'No warning message appears in the logs after accessing the batch page.');
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   }
 }
 
@@ -3128,7 +3122,6 @@ class ConfirmFormTest extends DrupalWebTestCase {
     return $this->assertTrue(isset($links[0]), $message, $group);
   }
 }
-<<<<<<< HEAD
 
 /**
  * Test case for Archiver classes.
@@ -3318,5 +3311,3 @@ class HtaccessTest extends DrupalWebTestCase {
     $this->assertResponse($response_code, "Response code to $path should be $response_code");
   }
 }
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d

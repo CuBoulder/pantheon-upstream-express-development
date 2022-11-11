@@ -108,10 +108,7 @@ class FileTestCase extends DrupalWebTestCase {
 
     // Mask out all but the last three octets.
     $actual_mode = fileperms($filepath) & 0777;
-<<<<<<< HEAD
     $expected_mode = $expected_mode & 0777;
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 
     // PHP on Windows has limited support for file permissions. Usually each of
     // "user", "group" and "other" use one octal digit (3 bits) to represent the
@@ -147,10 +144,7 @@ class FileTestCase extends DrupalWebTestCase {
 
     // Mask out all but the last three octets.
     $actual_mode = fileperms($directory) & 0777;
-<<<<<<< HEAD
     $expected_mode = $expected_mode & 0777;
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 
     // PHP on Windows has limited support for file permissions. Usually each of
     // "user", "group" and "other" use one octal digit (3 bits) to represent the
@@ -1064,7 +1058,6 @@ class FileDirectoryTest extends FileTestCase {
   }
 
   /**
-<<<<<<< HEAD
    * Test local directory handling functions.
    */
   function testFileCheckLocalDirectoryHandling() {
@@ -1098,8 +1091,6 @@ class FileDirectoryTest extends FileTestCase {
   }
 
   /**
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
    * Test directory handling functions.
    */
   function testFileCheckDirectoryHandling() {

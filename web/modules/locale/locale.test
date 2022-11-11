@@ -297,7 +297,6 @@ class LocaleJavascriptTranslationTest extends DrupalWebTestCase {
 
     $this->assertEqual(count($source_strings), count($test_strings), 'Found correct number of source strings.');
   }
-<<<<<<< HEAD
 
   /**
    * Test handling of null values in JS parsing for PHP8.0+ deprecations.
@@ -320,8 +319,6 @@ class LocaleJavascriptTranslationTest extends DrupalWebTestCase {
     $num_records = db_select('locales_source')->fields(NULL, array('lid'))->countQuery()->execute()->fetchField();
     $this->assertEqual($num_records, 32, 'Correct number of strings parsed from JS file');
   }
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 }
 /**
  * Functional test for string translation and validation.
@@ -1667,7 +1664,6 @@ class LocaleLanguageSwitchingFunctionalTest extends DrupalWebTestCase {
     $this->assertIdentical($links, array('active' => array('en'), 'inactive' => array('fr')), 'Only the current language list item is marked as active on the language switcher block.');
     $this->assertIdentical($anchors, array('active' => array('en'), 'inactive' => array('fr')), 'Only the current language anchor is marked as active on the language switcher block.');
   }
-<<<<<<< HEAD
 
   /**
    * Tests that languages can be added as disabled.
@@ -1676,8 +1672,6 @@ class LocaleLanguageSwitchingFunctionalTest extends DrupalWebTestCase {
     // Add new language which will be disabled.
     locale_add_language('de', 'German', 'Deutsch', LANGUAGE_LTR, '', '', FALSE, FALSE);
   }
-=======
->>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 }
 
 /**
