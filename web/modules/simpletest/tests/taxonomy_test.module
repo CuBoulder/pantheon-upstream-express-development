@@ -139,6 +139,7 @@ function taxonomy_test_query_taxonomy_term_access_alter(QueryAlterableInterface 
     variable_set(__FUNCTION__, ++$value);
   }
 }
+<<<<<<< HEAD
 
 /**
  * Test controller class for taxonomy terms.
@@ -150,3 +151,5 @@ class TestTaxonomyTermController extends TaxonomyTermController {
     return parent::cacheGet($ids, $conditions);
   }
 }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d

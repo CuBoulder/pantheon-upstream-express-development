@@ -1008,6 +1008,7 @@ class TaxonomyTermTestCase extends TaxonomyWebTestCase {
     $this->assertEqual(count($terms), 0, 'No terms loaded when restricted by a non-existing vocabulary.');
   }
 
+<<<<<<< HEAD
   /**
    * Tests that taxonomy term detail page is working even after the default
    * taxonomy_select_nodes() query is altered.
@@ -1031,6 +1032,8 @@ class TaxonomyTermTestCase extends TaxonomyWebTestCase {
     variable_set('taxonomy_nodes_test_query_node_access_alter', FALSE);
   }
 
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 }
 
 /**
@@ -1633,6 +1636,7 @@ class TaxonomyTermFieldTestCase extends TaxonomyWebTestCase {
     $this->assertEqual($allowed_values[2]['vocabulary'], 'foo', 'Index 2: Machine name was left untouched.');
   }
 
+<<<<<<< HEAD
   /**
    * Test empty taxonomy term reference field.
    */
@@ -1648,6 +1652,8 @@ class TaxonomyTermFieldTestCase extends TaxonomyWebTestCase {
     $this->pass('Empty term ID does not trigger autocreate.');
   }
 
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 }
 
 /**
@@ -2131,6 +2137,7 @@ class TaxonomyQueryAlterTestCase extends TaxonomyWebTestCase {
   }
 
 }
+<<<<<<< HEAD
 
 /**
  * Tests for taxonomy terms cache usage.
@@ -2242,3 +2249,5 @@ class TaxonomyPrivateFileTestCase extends TaxonomyWebTestCase {
     $this->assertResponse(403, 'Private image on term not accessible without right permission');
   }
 }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d

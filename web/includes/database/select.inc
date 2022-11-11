@@ -883,7 +883,11 @@ class SelectQuery extends Query implements SelectQueryInterface {
    *   'type' => $join_type (one of INNER, LEFT OUTER, RIGHT OUTER),
    *   'table' => $table,
    *   'alias' => $alias_of_the_table,
+<<<<<<< HEAD
    *   'condition' => $join_condition (string or Condition object),
+=======
+   *   'condition' => $condition_clause_on_which_to_join,
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
    *   'arguments' => $array_of_arguments_for_placeholders_in_the condition.
    *   'all_fields' => TRUE to SELECT $alias.*, FALSE or NULL otherwise.
    * )
@@ -891,10 +895,13 @@ class SelectQuery extends Query implements SelectQueryInterface {
    * If $table is a string, it is taken as the name of a table. If it is
    * a SelectQuery object, it is taken as a subquery.
    *
+<<<<<<< HEAD
    * If $join_condition is a Condition object, any arguments should be
    * incorporated into the object; a separate array of arguments does not need
    * to be provided.
    *
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
    * @var array
    */
   protected $tables = array();
@@ -1032,10 +1039,13 @@ class SelectQuery extends Query implements SelectQueryInterface {
       if ($table['table'] instanceof SelectQueryInterface) {
         $args += $table['table']->arguments();
       }
+<<<<<<< HEAD
       // If the join condition is an object, grab its arguments recursively.
       if (!empty($table['condition']) && $table['condition'] instanceof QueryConditionInterface) {
         $args += $table['condition']->arguments();
       }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     }
 
     foreach ($this->expressions as $expression) {
@@ -1087,10 +1097,13 @@ class SelectQuery extends Query implements SelectQueryInterface {
       if ($table['table'] instanceof SelectQueryInterface) {
         $table['table']->compile($connection, $queryPlaceholder);
       }
+<<<<<<< HEAD
       // Make sure join conditions are also compiled.
       if (!empty($table['condition']) && $table['condition'] instanceof QueryConditionInterface) {
         $table['condition']->compile($connection, $queryPlaceholder);
       }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     }
 
     // If there are any dependent queries to UNION, compile it recursively.
@@ -1111,11 +1124,14 @@ class SelectQuery extends Query implements SelectQueryInterface {
           return FALSE;
         }
       }
+<<<<<<< HEAD
       if (!empty($table['condition']) && $table['condition'] instanceof QueryConditionInterface) {
         if (!$table['condition']->compiled()) {
           return FALSE;
         }
       }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     }
 
     foreach ($this->union as $union) {
@@ -1585,7 +1601,11 @@ class SelectQuery extends Query implements SelectQueryInterface {
       $query .=  $table_string . ' ' . $this->connection->escapeAlias($table['alias']);
 
       if (!empty($table['condition'])) {
+<<<<<<< HEAD
         $query .= ' ON ' . (string) $table['condition'];
+=======
+        $query .= ' ON ' . $table['condition'];
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
       }
     }
 
@@ -1606,6 +1626,7 @@ class SelectQuery extends Query implements SelectQueryInterface {
       $query .= "\nHAVING " . $this->having;
     }
 
+<<<<<<< HEAD
     // UNION is a little odd, as the select queries to combine are passed into
     // this query, but syntactically they all end up on the same level.
     if ($this->union) {
@@ -1614,6 +1635,8 @@ class SelectQuery extends Query implements SelectQueryInterface {
       }
     }
 
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     // ORDER BY
     if ($this->order) {
       $query .= "\nORDER BY ";
@@ -1633,6 +1656,17 @@ class SelectQuery extends Query implements SelectQueryInterface {
       $query .= "\nLIMIT " . (int) $this->range['length'] . " OFFSET " . (int) $this->range['start'];
     }
 
+<<<<<<< HEAD
+=======
+    // UNION is a little odd, as the select queries to combine are passed into
+    // this query, but syntactically they all end up on the same level.
+    if ($this->union) {
+      foreach ($this->union as $union) {
+        $query .= ' ' . $union['type'] . ' ' . (string) $union['query'];
+      }
+    }
+
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     if ($this->forUpdate) {
       $query .= ' FOR UPDATE';
     }
@@ -1641,8 +1675,11 @@ class SelectQuery extends Query implements SelectQueryInterface {
   }
 
   public function __clone() {
+<<<<<<< HEAD
     parent::__clone();
 
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     // On cloning, also clone the dependent objects. However, we do not
     // want to clone the database connection object as that would duplicate the
     // connection itself.
@@ -1652,11 +1689,14 @@ class SelectQuery extends Query implements SelectQueryInterface {
     foreach ($this->union as $key => $aggregate) {
       $this->union[$key]['query'] = clone($aggregate['query']);
     }
+<<<<<<< HEAD
     foreach ($this->tables as $alias => $table) {
       if ($table['table'] instanceof SelectQueryInterface) {
         $this->tables[$alias]['table'] = clone $table['table'];
       }
     }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   }
 }
 

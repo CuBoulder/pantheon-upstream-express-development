@@ -187,7 +187,10 @@ class BootstrapPageCacheTestCase extends DrupalWebTestCase {
     $this->assertEqual($this->drupalGetHeader('Cache-Control'), 'public, max-age=0', 'Cache-Control header was sent.');
     $this->assertEqual($this->drupalGetHeader('Expires'), 'Sun, 19 Nov 1978 05:00:00 GMT', 'Expires header was sent.');
     $this->assertEqual($this->drupalGetHeader('Foo'), 'bar', 'Custom header was sent.');
+<<<<<<< HEAD
     $this->assertEqual($this->drupalGetHeader('X-Content-Type-Options'), 'nosniff', 'X-Content-Type-Options header was sent.');
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 
     // Check replacing default headers.
     $this->drupalGet('system-test/set-header', array('query' => array('name' => 'Expires', 'value' => 'Fri, 19 Nov 2008 05:00:00 GMT')));
@@ -237,9 +240,12 @@ class BootstrapPageCacheTestCase extends DrupalWebTestCase {
     $this->assertTitle(t('Welcome to @site-name | @site-name', array('@site-name' => variable_get('site_name', 'Drupal'))), 'Site title matches.');
     $this->assertRaw('</html>', 'Page was not compressed.');
 
+<<<<<<< HEAD
     // Verify that an empty page doesn't throw an error when being decompressed.
     $this->drupalGet('system-test/empty-page');
 
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     // Disable compression mode.
     variable_set('page_compression', FALSE);
 
@@ -252,6 +258,7 @@ class BootstrapPageCacheTestCase extends DrupalWebTestCase {
     $this->drupalGet('');
     $this->assertRaw('</html>', 'Page was delivered after compression mode is changed (compression support disabled).');
   }
+<<<<<<< HEAD
 
   /**
    * Test page cache headers.
@@ -273,6 +280,8 @@ class BootstrapPageCacheTestCase extends DrupalWebTestCase {
       $this->assertEqual($headers['X-Content-Type-Options'], 'nosniff', 'X-Content-Type-Options header retrieved from response in the page cache.');
     }
   }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 }
 
 class BootstrapVariableTestCase extends DrupalWebTestCase {

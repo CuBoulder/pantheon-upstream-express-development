@@ -22,13 +22,19 @@ class DatabaseTestCase extends DrupalWebTestCase {
     parent::setUp('database_test');
 
     $schema['test'] = drupal_get_schema('test');
+<<<<<<< HEAD
     $schema['test_classtype'] = drupal_get_schema('test_classtype');
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     $schema['test_people'] = drupal_get_schema('test_people');
     $schema['test_people_copy'] = drupal_get_schema('test_people_copy');
     $schema['test_one_blob'] = drupal_get_schema('test_one_blob');
     $schema['test_two_blobs'] = drupal_get_schema('test_two_blobs');
     $schema['test_task'] = drupal_get_schema('test_task');
+<<<<<<< HEAD
     $schema['TEST_UPPERCASE'] = drupal_get_schema('TEST_UPPERCASE');
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 
     $this->installTables($schema);
 
@@ -119,6 +125,7 @@ class DatabaseTestCase extends DrupalWebTestCase {
       ))
       ->execute();
 
+<<<<<<< HEAD
     db_insert('test_classtype')
       ->fields(array(
         'classname' => 'FakeRecord',
@@ -128,6 +135,8 @@ class DatabaseTestCase extends DrupalWebTestCase {
       ))
       ->execute();
 
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     db_insert('test_people')
       ->fields(array(
         'name' => 'Meredith',
@@ -325,10 +334,13 @@ class DatabaseSelectCloneTest extends DatabaseTestCase {
     $query->condition('id', $subquery, 'IN');
 
     $clone = clone $query;
+<<<<<<< HEAD
 
     // Cloned query should have a different unique identifier.
     $this->assertNotEqual($query->uniqueIdentifier(), $clone->uniqueIdentifier());
 
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     // Cloned query should not be altered by the following modification
     // happening on original query.
     $subquery->condition('age', 25, '>');
@@ -340,6 +352,7 @@ class DatabaseSelectCloneTest extends DatabaseTestCase {
     $this->assertEqual(3, $clone_result, 'The cloned query returns the expected number of rows');
     $this->assertEqual(2, $query_result, 'The query returns the expected number of rows');
   }
+<<<<<<< HEAD
 
   /**
    * Tests that nested SELECT queries are cloned properly.
@@ -367,6 +380,8 @@ class DatabaseSelectCloneTest extends DatabaseTestCase {
     $this->assertEqual(3, $clone_result, 'The cloned query returns the expected number of rows');
     $this->assertEqual(2, $query_result, 'The query returns the expected number of rows');
   }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 }
 
 /**
@@ -448,6 +463,7 @@ class DatabaseFetchTestCase extends DatabaseTestCase {
 
     $this->assertIdentical(count($records), 1, 'There is only one record.');
   }
+<<<<<<< HEAD
 
   /**
    * Confirms that we can fetch a record into a new instance of a custom class.
@@ -469,6 +485,8 @@ class DatabaseFetchTestCase extends DatabaseTestCase {
 
     $this->assertIdentical(count($records), 1, 'There is only one record.');
   }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 }
 
 /**
@@ -930,6 +948,7 @@ class DatabaseUpdateTestCase extends DatabaseTestCase {
       ->fields(array('age' => 1))
       ->execute();
 
+<<<<<<< HEAD
     // Ensure that expressions are handled properly. This should set every
     // record's age to a square of itself. The number of affected rows returned
     // by db_update() will vary across different database engines and versions:
@@ -954,6 +973,30 @@ class DatabaseUpdateTestCase extends DatabaseTestCase {
 
     $saved_name = db_query('SELECT name FROM {test} WHERE age = :age', array(':age' => pow(26, 2)))->fetchField();
     $this->assertIdentical('Paul', $saved_name, 'Successfully updated values using an algebraic expression.');
+=======
+    // Ensure that expressions are handled properly.  This should set every
+    // record's age to a square of itself, which will change only three of the
+    // four records in the table since 1*1 = 1. That means only three records
+    // are modified, so we should get back 3, not 4, from execute().
+    $num_rows = db_update('test')
+      ->expression('age', 'age * age')
+      ->execute();
+    $this->assertIdentical($num_rows, 3, 'Number of affected rows are returned.');
+  }
+
+  /**
+   * Confirm that we can update the primary key of a record successfully.
+   */
+  function testPrimaryKeyUpdate() {
+    $num_updated = db_update('test')
+      ->fields(array('id' => 42, 'name' => 'John'))
+      ->condition('id', 1)
+      ->execute();
+    $this->assertIdentical($num_updated, 1, 'Updated 1 record.');
+
+    $saved_name= db_query('SELECT name FROM {test} WHERE id = :id', array(':id' => 42))->fetchField();
+    $this->assertIdentical($saved_name, 'John', 'Updated primary key successfully.');
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   }
 }
 
@@ -1670,7 +1713,11 @@ class DatabaseSelectTestCase extends DatabaseTestCase {
 
   /**
    * Test that we can UNION multiple Select queries together. This is
+<<<<<<< HEAD
    * semantically equal to UNION DISTINCT, so we don't explicitly test that.
+=======
+   * semantically equal to UNION DISTINCT, so we don't explicity test that.
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
    */
   function testUnion() {
     $query_1 = db_select('test', 't')
@@ -1679,8 +1726,12 @@ class DatabaseSelectTestCase extends DatabaseTestCase {
 
     $query_2 = db_select('test', 't')
       ->fields('t', array('name'))
+<<<<<<< HEAD
       ->condition('age', 28)
       ->orderBy('name');
+=======
+      ->condition('age', 28);
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 
     $query_1->union($query_2);
 
@@ -1718,6 +1769,7 @@ class DatabaseSelectTestCase extends DatabaseTestCase {
   }
 
   /**
+<<<<<<< HEAD
    * Tests that we can UNION multiple Select queries together and set the ORDER.
    */
   function testUnionOrder() {
@@ -1776,6 +1828,8 @@ class DatabaseSelectTestCase extends DatabaseTestCase {
   }
 
   /**
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
    * Test that random ordering of queries works.
    *
    * We take the approach of testing the Drupal layer only, rather than trying
@@ -2440,6 +2494,7 @@ class DatabaseSelectComplexTestCase extends DatabaseTestCase {
     $this->assertNotEqual($crowded_job->name, $crowded_job->othername, 'Correctly joined same table twice.');
   }
 
+<<<<<<< HEAD
   /**
    * Test that join conditions can use Condition objects.
    */
@@ -2485,6 +2540,8 @@ class DatabaseSelectComplexTestCase extends DatabaseTestCase {
       $this->assertEqual($record->t2_name, $t2_name, 'Query expected to retrieve name ' . $t2_name . ' from table t2. Actual: ' . $record->t2_name);
     }
   }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 }
 
 /**
@@ -2676,6 +2733,7 @@ class DatabaseSelectPagerDefaultTestCase extends DatabaseTestCase {
   function testElementNumbers() {
     $_GET['page'] = '3, 2, 1, 0';
 
+<<<<<<< HEAD
     $query = db_select('test', 't')->extend('PagerDefault');
     $query->element(2)
       ->fields('t', array('name'))
@@ -2683,10 +2741,20 @@ class DatabaseSelectPagerDefaultTestCase extends DatabaseTestCase {
       ->limit(1);
     $this->assertEqual(2, $query->getElement());
     $name = $query->execute()->fetchField();
+=======
+    $name = db_select('test', 't')->extend('PagerDefault')
+      ->element(2)
+      ->fields('t', array('name'))
+      ->orderBy('age')
+      ->limit(1)
+      ->execute()
+      ->fetchField();
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     $this->assertEqual($name, 'Paul', 'Pager query #1 with a specified element ID returned the correct results.');
 
     // Setting an element smaller than the previous one
     // should not overwrite the pager $maxElement with a smaller value.
+<<<<<<< HEAD
     $query = db_select('test', 't')->extend('PagerDefault');
     $query->element(1)
       ->fields('t', array('name'))
@@ -2702,6 +2770,23 @@ class DatabaseSelectPagerDefaultTestCase extends DatabaseTestCase {
       ->limit(1);
     $this->assertEqual(3, $query->getElement());
     $name = $query->execute()->fetchField();
+=======
+    $name = db_select('test', 't')->extend('PagerDefault')
+      ->element(1)
+      ->fields('t', array('name'))
+      ->orderBy('age')
+      ->limit(1)
+      ->execute()
+      ->fetchField();
+    $this->assertEqual($name, 'George', 'Pager query #2 with a specified element ID returned the correct results.');
+
+    $name = db_select('test', 't')->extend('PagerDefault')
+      ->fields('t', array('name'))
+      ->orderBy('age')
+      ->limit(1)
+      ->execute()
+      ->fetchField();
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     $this->assertEqual($name, 'John', 'Pager query #3 with a generated element ID returned the correct results.');
 
     unset($_GET['page']);
@@ -3632,6 +3717,7 @@ class DatabaseQueryTestCase extends DatabaseTestCase {
       ->fetchField();
     $this->assertFalse($result, 'SQL injection attempt did not result in a row being inserted in the database table.');
   }
+<<<<<<< HEAD
 
   /**
    * Tests SQL injection via condition operator.
@@ -3693,6 +3779,8 @@ class DatabaseQueryTestCase extends DatabaseTestCase {
       $this->pass('SQL injection attempt via condition arguments should result in a database exception.');
     }
   }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 }
 
 /**
@@ -4523,6 +4611,7 @@ class DatabaseReservedKeywordTestCase extends DatabaseTestCase {
     }
     else {
       $database = $connection['database'];
+<<<<<<< HEAD
 
       if ($connection['driver'] === 'pgsql') {
         // database.scheme.table for PostgreSQL
@@ -4530,6 +4619,8 @@ class DatabaseReservedKeywordTestCase extends DatabaseTestCase {
         $database .= '.public';
       }
 
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
       // Test db_query with schema.{table} pattern
       db_query('SELECT * FROM ' . $database . '.{system} LIMIT 1')->fetchObject();
       $this->assertTrue(isset($record->filename), 'Successfully queried the schema.{system} table.');
@@ -4653,6 +4744,7 @@ class DatabaseTablePrefixTestCase extends DatabaseTestCase {
     }
 
     $db_name = $connection_options['database'];
+<<<<<<< HEAD
 
     if ($connection_options['driver'] === 'pgsql') {
       // database.scheme.table for PostgreSQL
@@ -4660,6 +4752,8 @@ class DatabaseTablePrefixTestCase extends DatabaseTestCase {
       $db_name .= '.public';
     }
 
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     // This prefix is usually something like simpletest12345
     $test_prefix = $connection_options['prefix']['default'];
 

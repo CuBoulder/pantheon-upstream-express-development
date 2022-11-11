@@ -20,6 +20,10 @@ function simpletest_requirements($phase) {
   $has_curl = function_exists('curl_init');
   $has_hash = function_exists('hash_hmac');
   $has_domdocument = method_exists('DOMDocument', 'loadHTML');
+<<<<<<< HEAD
+=======
+  $open_basedir = ini_get('open_basedir');
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 
   $requirements['curl'] = array(
     'title' => $t('cURL'),
@@ -47,6 +51,21 @@ function simpletest_requirements($phase) {
     $requirements['php_domdocument']['description'] = $t('The testing framework requires the DOMDocument class to be available. Check the configure command at the <a href="@link-phpinfo">PHP info page</a>.', array('@link-phpinfo' => url('admin/reports/status/php')));
   }
 
+<<<<<<< HEAD
+=======
+  // SimpleTest currently needs 2 cURL options which are incompatible with
+  // having PHP's open_basedir restriction set.
+  // See http://drupal.org/node/674304.
+  $requirements['php_open_basedir'] = array(
+    'title' => $t('PHP open_basedir restriction'),
+    'value' => $open_basedir ? $t('Enabled') : $t('Disabled'),
+  );
+  if ($open_basedir) {
+    $requirements['php_open_basedir']['severity'] = REQUIREMENT_ERROR;
+    $requirements['php_open_basedir']['description'] = $t('The testing framework requires the PHP <a href="@open_basedir-url">open_basedir</a> restriction to be disabled. Check your webserver configuration or contact your web host.', array('@open_basedir-url' => 'http://php.net/manual/en/ini.core.php#ini.open-basedir'));
+  }
+
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   // Check the current memory limit. If it is set too low, SimpleTest will fail
   // to load all tests and throw a fatal error.
   $memory_limit = ini_get('memory_limit');

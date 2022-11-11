@@ -46,9 +46,12 @@ class UpgradePathTaxonomyTestCase extends UpgradePathTestCase {
    * Basic tests for the taxonomy upgrade.
    */
   public function testTaxonomyUpgrade() {
+<<<<<<< HEAD
     if ($this->skipUpgradeTest) {
       return;
     }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     $this->assertTrue($this->performUpgrade(), 'The upgrade was completed successfully.');
 
     // Visit the front page to assert for PHP warning and errors.

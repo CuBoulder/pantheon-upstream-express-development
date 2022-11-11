@@ -31,12 +31,16 @@ class ImageFieldTestCase extends DrupalWebTestCase {
   protected $admin_user;
 
   function setUp() {
+<<<<<<< HEAD
     $modules = func_get_args();
     if (isset($modules[0]) && is_array($modules[0])) {
       $modules = $modules[0];
     }
     $modules[] = 'image';
     parent::setUp($modules);
+=======
+    parent::setUp('image');
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     $this->admin_user = $this->drupalCreateUser(array('access content', 'access administration pages', 'administer site configuration', 'administer content types', 'administer nodes', 'create article content', 'edit any article content', 'delete any article content', 'administer image styles', 'administer fields'));
     $this->drupalLogin($this->admin_user);
   }
@@ -383,11 +387,14 @@ class ImageStylesPathAndUrlTestCase extends DrupalWebTestCase {
     $directory = $scheme . '://styles/' . $this->style_name . '/' . $scheme . '/' . $this->randomName();
     $this->drupalGet(file_create_url($directory . '/' . $this->randomName()));
     $this->assertFalse(file_exists($directory), 'New directory was not created in the filesystem when requesting an unauthorized image.');
+<<<<<<< HEAD
 
     // Check that requesting a partial image style path returns access denied.
     $partial_url = $scheme . '://styles/' . $this->style_name . '/';
     $this->drupalGet(file_create_url($partial_url) . '/');
     $this->assertResponse(403, 'Access was denied to a partial image style path.');
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   }
 }
 
@@ -578,10 +585,13 @@ class ImageAdminStylesUnitTest extends ImageFieldTestCase {
     );
   }
 
+<<<<<<< HEAD
   function setUp() {
     parent::setUp('image_module_test', 'image_module_styles_test');
   }
 
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   /**
    * Given an image style, generate an image.
    */
@@ -902,6 +912,7 @@ class ImageAdminStylesUnitTest extends ImageFieldTestCase {
     $this->drupalGet('node/' . $nid);
     $this->assertRaw(check_plain(image_style_url('thumbnail', $node->{$field_name}[LANGUAGE_NONE][0]['uri'])), format_string('Image displayed using style replacement style.'));
   }
+<<<<<<< HEAD
 
   /**
    * Test disabling a module providing an effect in use by an image style.
@@ -914,6 +925,8 @@ class ImageAdminStylesUnitTest extends ImageFieldTestCase {
     $image_log = db_query_range('SELECT message FROM {watchdog} WHERE type = :type ORDER BY wid DESC', 0, 1, array(':type' => 'image'))->fetchField();
     $this->assertEqual('Image style %style_name has an effect %effect_name with no definition.', $image_log, 'A watchdog message was logged for the broken image style effect');
   }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 }
 
 /**
@@ -1191,6 +1204,7 @@ class ImageFieldDisplayTestCase extends ImageFieldTestCase {
     $this->drupalGet('node/' . $node->nid);
     $this->assertRaw($default_output, 'Default private image displayed when no user supplied image is present.');
   }
+<<<<<<< HEAD
 
   /**
    * Tests the display of image field with the missing FID.
@@ -1221,6 +1235,8 @@ class ImageFieldDisplayTestCase extends ImageFieldTestCase {
     $this->drupalGet('node/' . $nid);
     $this->assertResponse(200);
   }
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 }
 
 /**

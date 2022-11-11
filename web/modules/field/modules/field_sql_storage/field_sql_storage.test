@@ -105,6 +105,7 @@ class FieldSqlStorageTestCase extends DrupalWebTestCase {
   }
 
   /**
+<<<<<<< HEAD
    * Tests adding a field with an entity ID type of string.
    */
   function testFieldSqlSchemaForEntityWithStringIdentifier() {
@@ -128,6 +129,8 @@ class FieldSqlStorageTestCase extends DrupalWebTestCase {
   }
 
   /**
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
    * Reads mysql to verify correct data is
    * written when using insert and update.
    */

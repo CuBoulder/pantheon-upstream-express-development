@@ -13,6 +13,7 @@
 class DatabaseSchema_pgsql extends DatabaseSchema {
 
   /**
+<<<<<<< HEAD
    * PostgreSQL's temporary namespace name.
    *
    * @var string
@@ -20,6 +21,8 @@ class DatabaseSchema_pgsql extends DatabaseSchema {
   protected $tempNamespaceName;
 
   /**
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
    * A cache of information about blob columns and sequences of tables.
    *
    * This is collected by DatabaseConnection_pgsql->queryTableInformation(),
@@ -31,6 +34,7 @@ class DatabaseSchema_pgsql extends DatabaseSchema {
   protected $tableInformation = array();
 
   /**
+<<<<<<< HEAD
    * The maximum allowed length for index, primary key and constraint names.
    *
    * Value will usually be set to a 63 chars limit but PostgreSQL allows
@@ -89,6 +93,8 @@ class DatabaseSchema_pgsql extends DatabaseSchema {
   }
 
   /**
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
    * Fetch the list of blobs and sequences used on a table.
    *
    * We introspect the database to collect the information required by insert
@@ -104,6 +110,7 @@ class DatabaseSchema_pgsql extends DatabaseSchema {
   public function queryTableInformation($table) {
     // Generate a key to reference this table's information on.
     $key = $this->connection->prefixTables('{' . $table . '}');
+<<<<<<< HEAD
 
     // Take into account that temporary tables are stored in a different schema.
     // \DatabaseConnection::generateTemporaryTableName() sets 'db_temporary_'
@@ -116,10 +123,20 @@ class DatabaseSchema_pgsql extends DatabaseSchema {
     }
 
     if (!isset($this->tableInformation[$key])) {
+=======
+    if (!strpos($key, '.')) {
+      $key = 'public.' . $key;
+    }
+
+    if (!isset($this->tableInformation[$key])) {
+      // Split the key into schema and table for querying.
+      list($schema, $table_name) = explode('.', $key);
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
       $table_information = (object) array(
         'blob_fields' => array(),
         'sequences' => array(),
       );
+<<<<<<< HEAD
 
       // The bytea columns and sequences for a table can be found in
       // pg_attribute, which is significantly faster than querying the
@@ -145,6 +162,14 @@ EOD;
         return $table_information;
       }
 
+=======
+      // Don't use {} around information_schema.columns table.
+      $result = $this->connection->query("SELECT column_name, data_type, column_default FROM information_schema.columns WHERE table_schema = :schema AND table_name = :table AND (data_type = 'bytea' OR (numeric_precision IS NOT NULL AND column_default LIKE :default))", array(
+        ':schema' => $schema,
+        ':table' => $table_name,
+        ':default' => '%nextval%',
+      ));
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
       foreach ($result as $column) {
         if ($column->data_type == 'bytea') {
           $table_information->blob_fields[$column->column_name] = TRUE;
@@ -163,6 +188,7 @@ EOD;
   }
 
   /**
+<<<<<<< HEAD
    * Gets PostgreSQL's temporary namespace name.
    *
    * @return string
@@ -176,6 +202,8 @@ EOD;
   }
 
   /**
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
    * Fetch the list of CHECK constraints used on a field.
    *
    * We introspect the database to collect the information required by field
@@ -226,11 +254,19 @@ EOD;
 
     $sql_keys = array();
     if (isset($table['primary key']) && is_array($table['primary key'])) {
+<<<<<<< HEAD
       $sql_keys[] = 'CONSTRAINT ' . $this->ensureIdentifiersLength($name, '', 'pkey') . ' PRIMARY KEY (' . implode(', ', $table['primary key']) . ')';
     }
     if (isset($table['unique keys']) && is_array($table['unique keys'])) {
       foreach ($table['unique keys'] as $key_name => $key) {
         $sql_keys[] = 'CONSTRAINT ' . $this->ensureIdentifiersLength($name, $key_name, 'key') . ' UNIQUE (' . implode(', ', $key) . ')';
+=======
+      $sql_keys[] = 'PRIMARY KEY (' . implode(', ', $table['primary key']) . ')';
+    }
+    if (isset($table['unique keys']) && is_array($table['unique keys'])) {
+      foreach ($table['unique keys'] as $key_name => $key) {
+        $sql_keys[] = 'CONSTRAINT ' . $this->prefixNonTable($name, $key_name, 'key') . ' UNIQUE (' . implode(', ', $key) . ')';
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
       }
     }
 
@@ -414,6 +450,7 @@ EOD;
     return implode(', ', $return);
   }
 
+<<<<<<< HEAD
   /**
    * {@inheritdoc}
    */
@@ -476,6 +513,8 @@ EOD;
     return $tables;
   }
 
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   function renameTable($table, $new_name) {
     if (!$this->tableExists($table)) {
       throw new DatabaseSchemaObjectDoesNotExistException(t("Cannot rename @table to @table_new: table @table doesn't exist.", array('@table' => $table, '@table_new' => $new_name)));
@@ -492,6 +531,7 @@ EOD;
     // rename them when renaming the table.
     $indexes = $this->connection->query('SELECT indexname FROM pg_indexes WHERE schemaname = :schema AND tablename = :table', array(':schema' => $old_schema, ':table' => $old_table_name));
     foreach ($indexes as $index) {
+<<<<<<< HEAD
       // Get the index type by suffix, e.g. idx/key/pkey
       $index_type = substr($index->indexname, strrpos($index->indexname, '_') + 1);
 
@@ -517,6 +557,12 @@ EOD;
       }
 
       $this->connection->query('ALTER INDEX ' . $index->indexname . ' RENAME TO ' . $this->ensureIdentifiersLength($new_name, $index_name, $index_type));
+=======
+      if (preg_match('/^' . preg_quote($old_full_name) . '_(.*)$/', $index->indexname, $matches)) {
+        $index_name = $matches[1];
+        $this->connection->query('ALTER INDEX ' . $index->indexname . ' RENAME TO {' . $new_name . '}_' . $index_name);
+      }
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     }
 
     // Now rename the table.
@@ -599,6 +645,7 @@ EOD;
     $this->connection->query('ALTER TABLE {' . $table . '} ALTER COLUMN "' . $field . '" DROP DEFAULT');
   }
 
+<<<<<<< HEAD
   /**
    * {@inheritdoc}
    */
@@ -613,6 +660,11 @@ EOD;
   public function indexExists($table, $name) {
     // Details https://www.postgresql.org/docs/10/view-pg-indexes.html
     $index_name = $this->ensureIdentifiersLength($table, $name, 'idx');
+=======
+  public function indexExists($table, $name) {
+    // Details http://www.postgresql.org/docs/8.3/interactive/view-pg-indexes.html
+    $index_name = '{' . $table . '}_' . $name . '_idx';
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     return (bool) $this->connection->query("SELECT 1 FROM pg_indexes WHERE indexname = '$index_name'")->fetchField();
   }
 
@@ -625,6 +677,7 @@ EOD;
    *   The name of the constraint (typically 'pkey' or '[constraint]_key').
    */
   protected function constraintExists($table, $name) {
+<<<<<<< HEAD
     // ensureIdentifiersLength() expects three parameters, thus we split our
     // constraint name in a proper name and a suffix.
     if ($name == 'pkey') {
@@ -637,6 +690,9 @@ EOD;
       $name = substr($name, 0, $pos);
     }
     $constraint_name = $this->ensureIdentifiersLength($table, $name, $suffix);
+=======
+    $constraint_name = '{' . $table . '}_' . $name;
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     return (bool) $this->connection->query("SELECT 1 FROM pg_constraint WHERE conname = '$constraint_name'")->fetchField();
   }
 
@@ -648,7 +704,11 @@ EOD;
       throw new DatabaseSchemaObjectExistsException(t("Cannot add primary key to table @table: primary key already exists.", array('@table' => $table)));
     }
 
+<<<<<<< HEAD
     $this->connection->query('ALTER TABLE {' . $table . '} ADD CONSTRAINT ' . $this->ensureIdentifiersLength($table, '', 'pkey') . ' PRIMARY KEY (' . implode(',', $fields) . ')');
+=======
+    $this->connection->query('ALTER TABLE {' . $table . '} ADD PRIMARY KEY (' . implode(',', $fields) . ')');
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   }
 
   public function dropPrimaryKey($table) {
@@ -656,7 +716,11 @@ EOD;
       return FALSE;
     }
 
+<<<<<<< HEAD
     $this->connection->query('ALTER TABLE {' . $table . '} DROP CONSTRAINT ' . $this->ensureIdentifiersLength($table, '', 'pkey'));
+=======
+    $this->connection->query('ALTER TABLE {' . $table . '} DROP CONSTRAINT ' . $this->prefixNonTable($table, 'pkey'));
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     return TRUE;
   }
 
@@ -668,7 +732,11 @@ EOD;
       throw new DatabaseSchemaObjectExistsException(t("Cannot add unique key @name to table @table: unique key already exists.", array('@table' => $table, '@name' => $name)));
     }
 
+<<<<<<< HEAD
     $this->connection->query('ALTER TABLE {' . $table . '} ADD CONSTRAINT "' . $this->ensureIdentifiersLength($table, $name, 'key') . '" UNIQUE (' . implode(',', $fields) . ')');
+=======
+    $this->connection->query('ALTER TABLE {' . $table . '} ADD CONSTRAINT "' . $this->prefixNonTable($table, $name, 'key') . '" UNIQUE (' . implode(',', $fields) . ')');
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   }
 
   public function dropUniqueKey($table, $name) {
@@ -676,7 +744,11 @@ EOD;
       return FALSE;
     }
 
+<<<<<<< HEAD
     $this->connection->query('ALTER TABLE {' . $table . '} DROP CONSTRAINT "' . $this->ensureIdentifiersLength($table, $name, 'key') . '"');
+=======
+    $this->connection->query('ALTER TABLE {' . $table . '} DROP CONSTRAINT "' . $this->prefixNonTable($table, $name, 'key') . '"');
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     return TRUE;
   }
 
@@ -696,7 +768,11 @@ EOD;
       return FALSE;
     }
 
+<<<<<<< HEAD
     $this->connection->query('DROP INDEX ' . $this->ensureIdentifiersLength($table, $name, 'idx'));
+=======
+    $this->connection->query('DROP INDEX ' . $this->prefixNonTable($table, $name, 'idx'));
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     return TRUE;
   }
 
@@ -787,7 +863,11 @@ EOD;
   }
 
   protected function _createIndexSql($table, $name, $fields) {
+<<<<<<< HEAD
     $query = 'CREATE INDEX "' . $this->ensureIdentifiersLength($table, $name, 'idx') . '" ON {' . $table . '} (';
+=======
+    $query = 'CREATE INDEX "' . $this->prefixNonTable($table, $name, 'idx') . '" ON {' . $table . '} (';
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     $query .= $this->_createKeySql($fields) . ')';
     return $query;
   }
@@ -821,6 +901,7 @@ EOD;
       return $this->connection->query('SELECT obj_description(oid, ?) FROM pg_class WHERE relname = ?', array('pg_class', $info['table']))->fetchField();
     }
   }
+<<<<<<< HEAD
 
   /**
    * Calculates a base-64 encoded, PostgreSQL-safe sha-256 hash per PostgreSQL
@@ -853,4 +934,6 @@ EOD;
     return parent::buildTableNameCondition(strtolower($table_name), $operator, $add_prefix);
   }
 
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
 }

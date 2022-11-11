@@ -1905,7 +1905,11 @@ class DatabaseCondition implements QueryConditionInterface, Countable {
   public function __toString() {
     // If the caller forgot to call compile() first, refuse to run.
     if ($this->changed) {
+<<<<<<< HEAD
       return '';
+=======
+      return NULL;
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
     }
     return $this->stringVersion;
   }

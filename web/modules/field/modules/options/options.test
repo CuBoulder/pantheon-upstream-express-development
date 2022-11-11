@@ -311,11 +311,14 @@ class OptionsWidgetsTestCase extends FieldTestCase {
     $edit = array("card_1[$langcode]" => '_none');
     $this->drupalPost('test-entity/manage/' . $entity->ftid . '/edit', $edit, t('Save'));
     $this->assertFieldValues($entity_init, 'card_1', $langcode, array());
+<<<<<<< HEAD
 
     // Submit form: select the option from optgroup.
     $edit = array("card_1[$langcode]" => 2);
     $this->drupalPost(NULL, $edit, t('Save'));
     $this->assertFieldValues($entity_init, 'card_1', $langcode, array(2));
+=======
+>>>>>>> 7441251788c5c6f1a7dccf0c8b889f62dff9678d
   }
 
   /**
